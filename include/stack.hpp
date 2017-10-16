@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 #include <utility>
+#include <stdexcept>
 using namespace std;
 template<typename T>
 class stack {
