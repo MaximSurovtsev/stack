@@ -49,7 +49,7 @@ stack<T>::stack()
 template<typename T>
 stack<T>::stack(const stack& obj)
 {
-	std::copy(obj.array_, obj.array_ + obj.count_, stdext::checked_array_iterator<T*>(array_, obj.array_size_));
+	std::copy(obj.array_, obj.array_ + obj.count_, array_);
 	array_size_ = obj.array_size_;
 	count_ = obj.count_;
 }
