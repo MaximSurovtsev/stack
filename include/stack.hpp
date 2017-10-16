@@ -53,7 +53,7 @@ stack<T>& stack<T>::operator=(stack<T> const& obj)
 {
 	if (this != &obj)
 	{
-		stack(other).swap(*this);
+		stack(obj).swap(*this);
 	}
 	return *this;
 }
