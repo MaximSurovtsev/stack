@@ -96,7 +96,7 @@ ostream& print(ostream& ost, stack<T> const& test)
 		}
 		for (int i = 0; i < test.count_; i++)
 		{
-			ost << array_[i] << ' ';
+			ost << test.array_[i] << ' ';
 		}
 		return ost;
 }
