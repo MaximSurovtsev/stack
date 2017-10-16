@@ -71,7 +71,7 @@ void stack<T>::push(T const& el)
 	{
 		array_size_ *= 2;
 		stack<T> temp(*this);
-		swap(*this, temp);
+		swap(temp);
 	}
 	array_[count_++] = el;
 }
