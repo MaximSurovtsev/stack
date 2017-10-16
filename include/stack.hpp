@@ -1,6 +1,6 @@
 #ifndef STACK_HPP
 #define STACK_HPP
-
+#include <stdexcept>
 #include <iostream>
 #include <algorithm>
 #include <utility>
