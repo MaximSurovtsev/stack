@@ -26,3 +26,20 @@ SCENARIO("pop", "[init]") {
     REQUIRE(_stack.count() == 0);
 }
 
+SCENARIO("copy", "[init]") {
+    stack<int> _stack;
+    _stack.push(1);
+    _stack.push(2);
+    stack<int> other(_stack);
+    REQUIRE(_stack.count() == other.count());
+}
+
+SCENARIO("=", "[init]") {
+    stack<int> _stack;
+    _stack.push(1);
+    _stack.push(2);
+    stack<int> other;
+    other = _stack;
+    REQUIRE(other.count() == 2);
+}
+
