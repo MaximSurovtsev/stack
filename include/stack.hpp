@@ -11,24 +11,25 @@ public:
 	void push(T const &);
 	T pop();
 	bool isEmpty();
+	void swap(stack<T>&);
 	void last()const;
 	friend ostream& operator << (ostream& ost, stack<T> const& obj);
-	friend ostream& print(ostream& ost, stack<T> const& test);
+	void print(std::ostream&stream)const;
 	stack& operator=(stack const& other);
 
 private:
 	T* array_;
 	size_t array_size_;
 	size_t count_;
-	void swap(stack& first_obj, stack& second_obj);
+	
 };
 
-template<typename T> 
-void stack<T>::swap(stack<T>& first_obj, stack<T>& second_obj)
+template <typename T>
+void stack<T>::swap(stack<T>& other)
 {
-	std::swap(first_obj.array_, second_obj.array_);
-	std::swap(first_obj.array_size_, second_obj.array_size_);
-	std::swap(first_obj.count_, second_obj.count_);
+	std::swap(array_, other.array_);
+	std::swap(array_size_, other.array_size_);
+	std::swap(count_, other.count_);
 }
 
 template<typename T>
@@ -52,8 +53,7 @@ stack<T>& stack<T>::operator=(stack<T> const& obj)
 {
 	if (this != &obj)
 	{
-		stack<T> temp(obj);
-		swap(*this, temp);
+		stack(other).swap(*this);
 	}
 	return *this;
 }
@@ -87,18 +87,12 @@ T stack<T>::pop()
 	return result;
 }
 
-template<typename T>
-ostream& print(ostream& ost, stack<T> const& test)
+template <typename T>
+void stack<T>::print(std::ostream&stream)const
 {
-		if (test.count_ == 0)
-		{
-			throw "Stack is empty!";
-		}
-		for (int i = 0; i < test.count_; i++)
-		{
-			ost << test.array_[i] << ' ';
-		}
-		return ost;
+	for (unsigned int i = 0; i < count_; ++i)
+		stream << array_[i] << " ";
+	stream << std::endl;
 }
 template <typename T>
 bool stack<T>::isEmpty()
