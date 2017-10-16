@@ -4,18 +4,20 @@
 #include <iostream>
 #include <algorithm>
 #include <utility>
-#include <stdexcept>
 using namespace std;
 template<typename T>
 class stack {
 public:
 	stack();
+	stack(const stack&);
 	size_t count() const;
 	void push(T const &);
 	T pop();
 	void print();
 	void last();
 	void swap();
+	T* swap(const stack&);
+	stack& operator=(const stack& other);
 private:
 	T* array_;
 	size_t array_size_;
@@ -28,6 +30,13 @@ void stack<T>::swap() {
 	std::copy(array_, array_ + count_, temp);
 	array_ = temp;
 }
+template<typename T>
+T* stack<T>::swap(const stack& obj) {
+	T* temp = new T[obj.array_size_]();
+	std::copy(obj, obj + obj.count_, temp);
+	obj.array_ = temp;
+	return temp;
+}
 
 template<typename T>
 stack<T>::stack()
@@ -36,6 +45,16 @@ stack<T>::stack()
 	array_size_ = 0;
 	count_ = 0;
 }
+
+template<typename T>
+stack<T>::stack(const stack& obj)
+{
+	std::copy(obj.array_, obj.array_ + obj.count_, stdext::checked_array_iterator<T*>(array_, obj.array_size_));
+	array_size_ = obj.array_size_;
+	count_ = obj.count_;
+}
+
+
 
 template<typename T>
 size_t stack<T>::count() const
@@ -107,12 +126,25 @@ void stack<T>::print()
 template<typename T>
 void stack<T>::last()
 {
-	if (array_size_ == 0)
+	if (count_ == 0)
 	{
 		cout << "Stack is empty\n";
 	}
 	else {
 		cout << array_[count_ - 1]<< "\n";
 	}
+}
+
+template<typename T>
+stack<T>& stack<T>::operator=(stack<T> const & other)
+{
+	if (this != &other)
+	{
+		delete[] array_;
+		array_ = swap(other);
+		array_size_ = obj.array_size_;
+		count_ = obj.count_;
+	}
+	return *this;
 }
 #endif 
