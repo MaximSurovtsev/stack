@@ -34,7 +34,6 @@ template<typename T>
 T* stack<T>::swap(const stack& obj) {
 	T* temp = new T[obj.array_size_]();
 	std::copy(obj, obj + obj.count_, temp);
-	obj.array_ = temp;
 	return temp;
 }
 
@@ -136,12 +135,12 @@ void stack<T>::last()
 }
 
 template<typename T>
-stack<T>& stack<T>::operator=(stack<T> const & other)
+stack<T>& stack<T>::operator=(stack<T> const & obj)
 {
-	if (this != &other)
+	if (this != &obj)
 	{
 		delete[] array_;
-		array_ = swap(other);
+		array_ = swap(obj);
 		array_size_ = obj.array_size_;
 		count_ = obj.count_;
 	}
