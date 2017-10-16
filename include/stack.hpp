@@ -1,6 +1,3 @@
-#ifndef STACK_HPP
-#define STACK_HPP
-#include <stdexcept>
 #include <iostream>
 #include <algorithm>
 #include <utility>
@@ -13,47 +10,53 @@ public:
 	size_t count() const;
 	void push(T const &);
 	T pop();
-	void print();
-	void last();
-	void swap();
-	T* swap(const stack&);
-	stack& operator=(const stack& other);
+	
+	void last()const;
+	
+	friend ostream& print(ostream& ost, stack<T> const& test);
+	stack& operator=(stack const& other);
+
 private:
 	T* array_;
 	size_t array_size_;
 	size_t count_;
+	void swap(stack& first_obj, stack& second_obj);
 };
 
 template<typename T> 
-void stack<T>::swap() {
-	T* temp = new T[array_size_]();
-	std::copy(array_, array_ + count_, temp);
-	array_ = temp;
-}
-template<typename T>
-T* stack<T>::swap(const stack& obj) {
-	T* temp = new T[obj.array_size_]();
-	std::copy(obj, obj + obj.count_, temp);
-	return temp;
+void stack<T>::swap(stack<T>& first_obj, stack<T>& second_obj)
+{
+	std::swap(first_obj.array_, second_obj.array_);
+	std::swap(first_obj.array_size_, second_obj.array_size_);
+	std::swap(first_obj.count_, second_obj.count_);
 }
 
 template<typename T>
-stack<T>::stack()
+stack<T>::stack(): array_size_(1), count_(0)
 {
-	array_ = nullptr;
-	array_size_ = 0;
-	count_ = 0;
+	array_ = new T[1]();
 }
 
-template<typename T>
-stack<T>::stack(const stack& obj)
+template <typename T>
+stack<T>::stack(stack<T> const& obj)
 {
-	std::copy(obj.array_, obj.array_ + obj.count_, array_);
-	array_size_ = obj.array_size_;
 	count_ = obj.count_;
+	array_size_ = obj.array_size_;
+	array_ = new T[array_size_];
+
+	std::copy(obj.array_, obj.array_ + count_, array_);
 }
 
-
+template<typename T>
+stack<T>& stack<T>::operator=(stack<T> const& obj)
+{
+	if (this != &obj)
+	{
+		stack<T> temp(obj);
+		swap(*this, temp);
+	}
+	return *this;
+}
 
 template<typename T>
 size_t stack<T>::count() const
@@ -64,66 +67,43 @@ size_t stack<T>::count() const
 template<typename T>
 void stack<T>::push(T const& el)
 {
-	if (array_size_ == 0) {
-		array_size_ = 1;
-		count_ = 1;
-		array_ = new T[array_size_]();
-		array_[0] = el;
-
+	if (array_size_ == count_) 
+	{
+		array_size_ *= 2;
+		stack<T> temp(*this);
+		swap(*this, temp);
 	}
-	else {
-		if (array_size_ == count_) {
-			array_size_ *= 2;
-			swap();
-		}
-		array_[count_++] = el;
-	}
+	array_[count_++] = el;
 }
 template<typename T>
 T stack<T>::pop()
 {
-	if (array_size_ > 0)
+	if (count_ == 0)
 	{
-		T temp = array_[--count_];
-		if (count_ == 0)
-		{
-			array_size_ = 0;
-			delete[] array_;
-		}
-
-		else	if (array_size_ / 2 == count_)
-				{
-					array_size_ /= 2;
-					swap();
-				}
-				else 
-				{
-					array_[count_] = 0;
-				}
-		return temp;
+		throw "Stack is empty!";
 	}
-	else {
-		throw std::logic_error("Stack is empty!");
-	}
+	count_--;
+	T result = array_[count_];
+	return result;
 }
 
 template<typename T>
-void stack<T>::print()
+ostream& print(ostream& ost, stack<T> const& test)
 {
-		if (array_size_ == 0)
+		if (test.count_ == 0)
 		{
-			cout << "Stack is empty!";
-			return;
+			throw "Stack is empty!";
 		}
-		for (int i = 0; i < array_size_; i++)
+		for (int i = 0; i < test.count_; i++)
 		{
-			cout << array_[i] << ' ';
+			ost << array_[i] << ' ';
 		}
-		cout << "\n";
+		return ost;
 }
 
+
 template<typename T>
-void stack<T>::last()
+void stack<T>::last() const
 {
 	if (count_ == 0)
 	{
@@ -134,16 +114,3 @@ void stack<T>::last()
 	}
 }
 
-template<typename T>
-stack<T>& stack<T>::operator=(stack<T> const & obj)
-{
-	if (this != &obj)
-	{
-		delete[] array_;
-		array_ = swap(obj);
-		array_size_ = obj.array_size_;
-		count_ = obj.count_;
-	}
-	return *this;
-}
-#endif 
