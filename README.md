@@ -1,2 +1,2 @@
 # vector
-https://travis-ci.org/MaximSurovtsev/vector
+https://travis-ci.org/MaximSurovtsev/stack
