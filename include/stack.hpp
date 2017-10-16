@@ -10,9 +10,9 @@ public:
 	size_t count() const;
 	void push(T const &);
 	T pop();
-	
+	bool isEmpty();
 	void last()const;
-	
+	friend ostream& operator << (ostream& ost, stack<T> const& obj);
 	friend ostream& print(ostream& ost, stack<T> const& test);
 	stack& operator=(stack const& other);
 
@@ -99,6 +99,17 @@ ostream& print(ostream& ost, stack<T> const& test)
 			ost << test.array_[i] << ' ';
 		}
 		return ost;
+}
+template <typename T>
+bool stack<T>::isEmpty()
+{
+	return (count_ == 0);
+}
+
+template <typename T>
+ostream& operator << (ostream& ost, stack<T> const& obj)
+{
+	return print(ost, obj);
 }
 
 
