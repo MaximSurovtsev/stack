@@ -25,7 +25,7 @@ private:
 template<typename T> 
 void stack<T>::swap() {
 	T* temp = new T[array_size_]();
-	std::copy(array_, array_ + count_, stdext::checked_array_iterator<T*>(temp, array_size_));
+	std::copy(array_, array_ + count_, temp);
 	array_ = temp;
 }
 
