@@ -13,7 +13,7 @@ public:
 	bool isEmpty();
 	void swap(stack<T>&);
 	void last()const;
-	friend std::ostream&operator << (std::ostream&stream, stack<T> const&);
+	friend std::ostream& operator << (std::ostream&stream, stack<T> const&);
 	friend std::ostream& print(std::ostream&stream, stack<T> const& test);
 	stack& operator=(stack const& other);
 
