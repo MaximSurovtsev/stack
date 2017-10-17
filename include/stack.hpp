@@ -14,7 +14,7 @@ public:
 	void swap(stack<T>&);
 	void last()const;
 	friend std::ostream&operator << (std::ostream&stream, stack<T> const&);
-	void print(std::ostream&stream)const;
+	friend std::ostream& print(std::ostream&stream, stack<T> const& test);
 	stack& operator=(stack const& other);
 
 private:
@@ -88,11 +88,12 @@ T stack<T>::pop()
 }
 
 template <typename T>
-void stack<T>::print(std::ostream&stream)const
+std::ostream& print(std::ostream&stream, stack<T> const& test)
 {	
-	for (unsigned int i = 0; i < count_; ++i)
-		stream << array_[i] << " ";
+	for (unsigned int i = 0; i < test.count_; ++i)
+		stream << test.array_[i] << " ";
 	stream << std::endl;
+	return stream;
 }
 template <typename T>
 bool stack<T>::isEmpty()
@@ -103,7 +104,7 @@ bool stack<T>::isEmpty()
 template <typename T>
 std::ostream& operator << (std::ostream&stream, stack<T> const& stack_)
 {
-	return stack_.print(stream);
+	return print(stream, stack_);
 }
 
 
