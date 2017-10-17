@@ -13,7 +13,7 @@ public:
 	bool isEmpty();
 	void swap(stack<T>&);
 	void last()const;
-	friend std::ostream&operator << (std::ostream&stream, const stack<T>&);
+	friend std::ostream&operator << (std::ostream&stream, stack<T> const&);
 	void print(std::ostream&stream)const;
 	stack& operator=(stack const& other);
 
@@ -101,7 +101,7 @@ bool stack<T>::isEmpty()
 }
 
 template <typename T>
-std::ostream& operator << (std::ostream&stream, const stack<T>&stack_)
+std::ostream& operator << (std::ostream&stream, stack<T> const& stack_)
 {
 	return stack_.print(stream);
 }
