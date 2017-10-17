@@ -88,7 +88,7 @@ T stack<T>::pop()
 }
 
 template <typename T>
-std::ostream&<T> print(std::ostream&stream, stack<T> const& test)
+std::ostream&<> print(std::ostream&stream, stack<T> const& test)
 {	
 	for (unsigned int i = 0; i < test.count_; ++i)
 		stream << test.array_[i] << " ";
@@ -102,7 +102,7 @@ bool stack<T>::isEmpty()
 }
 
 template <typename T>
-std::ostream&<T> operator << (std::ostream& stream, stack<T> const& stack_)
+std::ostream&<> operator << (std::ostream& stream, stack<T> const& stack_)
 {
 	return print(stream, stack_);
 }
