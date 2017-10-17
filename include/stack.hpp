@@ -16,7 +16,7 @@ public:
 	
 	std::ostream& print(std::ostream&stream);
 	stack& operator=(stack const& other);
-	friend ostream& operator << (ostream&, stack const&);
+	template<typename T1> friend ostream& operator << (ostream&, stack<T1> const&);
 
 private:
 	T* array_;
