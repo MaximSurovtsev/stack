@@ -89,7 +89,11 @@ T stack<T>::pop()
 
 template <typename T>
 void stack<T>::print(std::ostream&stream)const
-{
+{	
+	if (isEmpty()) 
+	{
+		throw "Stack is empty!";
+	}
 	for (unsigned int i = 0; i < count_; ++i)
 		stream << array_[i] << " ";
 	stream << std::endl;
