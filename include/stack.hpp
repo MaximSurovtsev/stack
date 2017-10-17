@@ -105,7 +105,7 @@ bool stack<T>::isEmpty()
 template <typename T>
 ostream& operator << (std::ostream& stream, stack<T> const& stack_)
 {
-	return print(stream, stack_);
+	return stack_.print(stream);
 }
 
 
