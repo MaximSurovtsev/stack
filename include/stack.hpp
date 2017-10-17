@@ -16,7 +16,7 @@ public:
 	
 	std::ostream& print(std::ostream&stream);
 	stack& operator=(stack const& other);
-	template<typename T1> friend ostream& operator << (ostream&, stack<T1> const&);
+	template<typename T1> friend ostream& operator << (ostream&, stack<T1>&);
 
 private:
 	T* array_;
@@ -103,7 +103,7 @@ bool stack<T>::isEmpty()
 }
 
 template <typename T>
-ostream& operator << (std::ostream& stream, stack<T> const& stack_)
+ostream& operator << (std::ostream& stream, stack<T>& stack_)
 {
 	return stack_.print(stream);
 }
