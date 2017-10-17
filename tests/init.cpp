@@ -1,6 +1,13 @@
 #include <stack.hpp>
 #include <catch.hpp>
 
+SCENARIO("print", "") {
+    stack<int> s;
+    
+    std::cout << s;
+    
+    REQUIRE( std::cout );
+}
 
 SCENARIO("count", "[init]") {
     stack<int> _stack;
