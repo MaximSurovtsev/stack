@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <utility>
 using namespace std;
+
 template<typename T>
 class stack {
 public:
